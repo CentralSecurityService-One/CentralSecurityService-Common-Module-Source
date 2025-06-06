@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Eadent.Common\Eadent.Common.csproj" />
+    <ProjectReference Include="..\Eadent.Common\Eadent.Common.csproj" />
   </ItemGroup>
 
 </Project>
