@@ -22,7 +22,7 @@ namespace CentralSecurityService.Common.DataAccess.CentralSecurityService.Entiti
 
         public string Categorisations { get; set; }
 
-        public DateTime CreateDateTimeUtc { get; set; }
+        public DateTime CreatedDateTimeUtc { get; set; }
 
         public DateTime? LastUpdatedDateTimeUtc { get; set; }
     }
