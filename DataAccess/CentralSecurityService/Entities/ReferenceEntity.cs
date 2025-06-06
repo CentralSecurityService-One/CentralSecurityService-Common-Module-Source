@@ -12,7 +12,7 @@ namespace CentralSecurityService.Common.DataAccess.CentralSecurityService.Entiti
 
         public int SubReferenceId { get; set; }
 
-        public ReferenceType ReferenceType { get; set; }
+        public ReferenceType ReferenceTypeId { get; set; }
 
         public string ThumbnailRelativeFileName { get; set; }
 
