@@ -1,4 +1,5 @@
 ﻿using CentralSecurityService.Common.Configuration;
+using CentralSecurityService.Common.DataAccess.CentralSecurityService.Entities;
 using Eadent.Common.DataAccess.EntityFramework.Databases;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,6 +7,8 @@ namespace CentralSecurityService.Common.DataAccess.CentralSecurityService.Databa
 {
     public class CentralSecurityServiceDatabase : BaseDatabase, ICentralSecurityServiceDatabase
     {
+        public virtual DbSet<ReferenceEntity> References { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema(CentralSecurityServiceCommonSettings.Instance.Database.DatabaseSchema);
