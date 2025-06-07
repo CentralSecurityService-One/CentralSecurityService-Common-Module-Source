@@ -18,7 +18,7 @@ namespace CentralSecurityService.Common.DataAccess.CentralSecurityService.Entiti
 
         public string ReferenceName { get; set; }
 
-        public string SubjectNames { get; set; }
+        public string Description { get; set; }
 
         public string Categorisations { get; set; }
 
