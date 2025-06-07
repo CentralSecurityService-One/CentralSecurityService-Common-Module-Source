@@ -45,5 +45,13 @@ namespace CentralSecurityService.Common.DataAccess.CentralSecurityService.Databa
 
             return nextUniqueReferenceId;
         }
+
+        public void AddReference(ReferenceEntity referenceEntity)
+        {
+            if (referenceEntity == null)
+                throw new ArgumentNullException(nameof(referenceEntity));
+            References.Add(referenceEntity);
+            SaveChanges();
+        }
     }
 }
