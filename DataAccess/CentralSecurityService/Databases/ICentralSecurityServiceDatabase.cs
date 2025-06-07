@@ -6,7 +6,5 @@ namespace CentralSecurityService.Common.DataAccess.CentralSecurityService.Databa
     public interface ICentralSecurityServiceDatabase : IBaseDatabase
     {
         long GetNextUniqueReferenceId();
-
-        void AddReference(ReferenceEntity referenceEntity);
     }
 }
