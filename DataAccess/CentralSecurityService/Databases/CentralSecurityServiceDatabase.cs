@@ -32,7 +32,9 @@ namespace CentralSecurityService.Common.DataAccess.CentralSecurityService.Databa
         {
             long nextUniqueReferenceId;
 
-            using (var databaseConnection = Database.GetDbConnection())
+            var connectionString = Database.GetDbConnection().ConnectionString;
+
+            using (var databaseConnection = new SqlConnection(connectionString))
             {
                 databaseConnection.Open();
 
