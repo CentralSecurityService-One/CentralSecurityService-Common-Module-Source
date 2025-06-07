@@ -58,7 +58,7 @@ namespace CentralSecurityService.Common.DataAccess.CentralSecurityService.Databa
                 using (var command = databaseConnection.CreateCommand())
                 {
                     command.CommandText = @"
-                        INSERT INTO [Reference] (
+                        INSERT INTO Dad.[Reference] (
                             UniqueReferenceId,
                             SubReferenceId,
                             ReferenceTypeId,
@@ -95,7 +95,7 @@ namespace CentralSecurityService.Common.DataAccess.CentralSecurityService.Databa
 
                     databaseConnection.Close();
                 }
+            }
         }
-    }
     }
 }
