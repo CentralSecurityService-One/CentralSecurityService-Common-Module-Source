@@ -3,6 +3,7 @@
     public enum ReferenceType : short
     {
         Image = 0,
-        Url = 1
+        VideoUrl = 1,
+        Url = 2
     }
 }
