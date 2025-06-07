@@ -42,6 +42,8 @@ namespace CentralSecurityService.Common.DataAccess.CentralSecurityService.Databa
 
                     nextUniqueReferenceId = (long)sqlCommand.ExecuteScalar();
                 }
+
+                databaseConnection.Close();
             }
 
             return nextUniqueReferenceId;
@@ -79,18 +81,20 @@ namespace CentralSecurityService.Common.DataAccess.CentralSecurityService.Databa
                         );
                     ";
 
-                command.Parameters.Add(new SqlParameter("@UniqueReferenceId", entity.UniqueReferenceId));
-                command.Parameters.Add(new SqlParameter("@SubReferenceId", entity.SubReferenceId));
-                command.Parameters.Add(new SqlParameter("@ReferenceTypeId", (short)entity.ReferenceTypeId));
-                command.Parameters.Add(new SqlParameter("@ThumbnailRelativeFileName", (object?)entity.ThumbnailRelativeFileName ?? DBNull.Value));
-                command.Parameters.Add(new SqlParameter("@ReferenceName", (object?)entity.ReferenceName ?? DBNull.Value));
-                command.Parameters.Add(new SqlParameter("@SubjectNames", (object?)entity.SubjectNames ?? DBNull.Value));
-                command.Parameters.Add(new SqlParameter("@Categorisations", (object?)entity.Categorisations ?? DBNull.Value));
-                command.Parameters.Add(new SqlParameter("@CreatedDateTimeUtc", entity.CreatedDateTimeUtc));
-                command.Parameters.Add(new SqlParameter("@LastUpdatedDateTimeUtc", (object?)entity.LastUpdatedDateTimeUtc ?? DBNull.Value));
+                    command.Parameters.Add(new SqlParameter("@UniqueReferenceId", entity.UniqueReferenceId));
+                    command.Parameters.Add(new SqlParameter("@SubReferenceId", entity.SubReferenceId));
+                    command.Parameters.Add(new SqlParameter("@ReferenceTypeId", (short)entity.ReferenceTypeId));
+                    command.Parameters.Add(new SqlParameter("@ThumbnailRelativeFileName", (object?)entity.ThumbnailRelativeFileName ?? DBNull.Value));
+                    command.Parameters.Add(new SqlParameter("@ReferenceName", (object?)entity.ReferenceName ?? DBNull.Value));
+                    command.Parameters.Add(new SqlParameter("@SubjectNames", (object?)entity.SubjectNames ?? DBNull.Value));
+                    command.Parameters.Add(new SqlParameter("@Categorisations", (object?)entity.Categorisations ?? DBNull.Value));
+                    command.Parameters.Add(new SqlParameter("@CreatedDateTimeUtc", entity.CreatedDateTimeUtc));
+                    command.Parameters.Add(new SqlParameter("@LastUpdatedDateTimeUtc", (object?)entity.LastUpdatedDateTimeUtc ?? DBNull.Value));
 
-                command.ExecuteNonQuery();
-            }
+                    command.ExecuteNonQuery();
+
+                    databaseConnection.Close();
+                }
         }
     }
     }
