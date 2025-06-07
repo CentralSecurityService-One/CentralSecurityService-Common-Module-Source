@@ -14,7 +14,7 @@ namespace CentralSecurityService.Common.DataAccess.CentralSecurityService.Entiti
 
         public ReferenceType ReferenceTypeId { get; set; }
 
-        public string ThumbnailRelativeFileName { get; set; }
+        public string ThumbnailFileName { get; set; }
 
         public string ReferenceName { get; set; }
 

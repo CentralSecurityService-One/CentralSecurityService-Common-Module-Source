@@ -33,7 +33,7 @@ namespace CentralSecurityService.Common.DataAccess.CentralSecurityService.Databa
             long nextUniqueReferenceId;
 
             // WARNING: Be very careful about Connections and ConnectionString usage here. The original code killed the ConnectionString.
-            var connectionString = Database.GetDbConnection().ConnectionString;
+            var connectionString = CentralSecurityServiceCommonSettings.Instance.Database.ConnectionString;
 
             using (var databaseConnection = new SqlConnection(connectionString))
             {
