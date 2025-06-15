@@ -5,5 +5,8 @@ namespace CentralSecurityService.Common.DataAccess.CentralSecurityService.Reposi
 {
     public interface IReferencesRepository : IBaseRepository<ReferenceEntity, long>
     {
+        bool ReferenceExists(string sourceReferenceName);
+
+        bool ReferenceExistsIgnoringUniqueReferenceIdPrefix(string sourceReferenceName);
     }
 }
