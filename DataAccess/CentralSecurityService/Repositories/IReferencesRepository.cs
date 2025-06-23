@@ -5,8 +5,8 @@ namespace CentralSecurityService.Common.DataAccess.CentralSecurityService.Reposi
 {
     public interface IReferencesRepository : IBaseRepository<ReferenceEntity, long>
     {
-        bool ReferenceExists(string sourceReferenceName);
+        Task<bool> ReferenceExistsAsync(string sourceReferenceName, CancellationToken cancellationToken = default);
 
-        bool ReferenceExistsIgnoringUniqueReferenceIdPrefix(string sourceReferenceName);
+        Task<bool> ReferenceExistsIgnoringUniqueReferenceIdPrefixAsync(string sourceReferenceName, CancellationToken cancellationToken = default);
     }
 }

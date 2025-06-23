@@ -1,6 +1,7 @@
 ﻿using CentralSecurityService.Common.DataAccess.CentralSecurityService.Databases;
 using CentralSecurityService.Common.DataAccess.CentralSecurityService.Entities;
 using Eadent.Common.DataAccess.EntityFramework.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace CentralSecurityService.Common.DataAccess.CentralSecurityService.Repositories
 {
@@ -10,18 +11,18 @@ namespace CentralSecurityService.Common.DataAccess.CentralSecurityService.Reposi
         {
         }
 
-        public bool ReferenceExists(string sourceReferenceName)
+        public Task<bool> ReferenceExistsAsync(string sourceReferenceName, CancellationToken cancellationToken = default)
         {
             return Database.References
-                .Any(referenceEntity => referenceEntity.ReferenceName == sourceReferenceName);
+                .AnyAsync(referenceEntity => referenceEntity.ReferenceName == sourceReferenceName, cancellationToken);
         }
 
-        public bool ReferenceExistsIgnoringUniqueReferenceIdPrefix(string sourceReferenceName)
+        public Task<bool> ReferenceExistsIgnoringUniqueReferenceIdPrefixAsync(string sourceReferenceName, CancellationToken cancellationToken = default)
         {
             // This will be translated to T-SQL SUBSTRING in SQL Server.
             return Database.References
-                .Any(referenceEntity => referenceEntity.ReferenceName.Length > 17 &&
-                     referenceEntity.ReferenceName.Substring(17, sourceReferenceName.Length + 17) == sourceReferenceName);
+                .AnyAsync(referenceEntity => referenceEntity.ReferenceName.Length > 17 &&
+                     referenceEntity.ReferenceName.Substring(17, sourceReferenceName.Length + 17) == sourceReferenceName, cancellationToken);
         }
     }
 }
