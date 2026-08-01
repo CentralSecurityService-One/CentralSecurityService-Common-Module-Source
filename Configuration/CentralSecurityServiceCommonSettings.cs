@@ -1,4 +1,6 @@
-﻿namespace CentralSecurityService.Common.Configuration
+﻿using Eadent.Common.Configuration;
+
+namespace CentralSecurityService.Common.Configuration
 {
     public class CentralSecurityServiceCommonSettings
     {
@@ -37,7 +39,29 @@
             public decimal MinimumScore { get; set; }
         }
 
+        public string DatabaseTypeName { get; set; }
+
+        // The following are Derived rather than explicitly Configured.
+        private int? _databaseTypeValue;
+
+        public int DatabaseTypeValue
+        {
+            get
+            {
+                if (_databaseTypeValue == null)
+                {
+                    _databaseTypeValue = DatabaseType.GetDatabaseType(DatabaseTypeName);
+                }
+
+                return _databaseTypeValue.GetValueOrDefault();
+            }
+        }
+
         public DatabaseSettings Database { get; set; }
+
+        public SqlServerDatabaseSettings SqlServerDatabase { get; set; }
+
+        public PostgreSqlDatabaseSettings PostgreSqlDatabase { get; set; }
 
         public GoogleReCaptchaSettings GoogleReCaptcha { get; set; }
     }
