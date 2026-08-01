@@ -14,7 +14,20 @@ namespace CentralSecurityService.Common.DataAccess.CentralSecurityService.Databa
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema(CentralSecurityServiceCommonSettings.Instance.Database.DatabaseSchema);
+            int databaseTypeValue = CentralSecurityServiceCommonSettings.Instance.DatabaseTypeValue;
+
+            if (databaseTypeValue == DatabaseType.SqlServer)
+            {
+                modelBuilder.HasDefaultSchema(CentralSecurityServiceCommonSettings.Instance.SqlServerDatabase.DatabaseSchema);
+            }
+            else if (databaseTypeValue == DatabaseType.PostgreSql)
+            {
+                modelBuilder.HasDefaultSchema(CentralSecurityServiceCommonSettings.Instance.PostgreSqlDatabase.DatabaseSchema);
+            }
+            else
+            {
+                throw new InvalidOperationException($"Unsupported Database Type Value: {databaseTypeValue}");
+            }
 
             base.OnModelCreating(modelBuilder);
         }
@@ -26,8 +39,22 @@ namespace CentralSecurityService.Common.DataAccess.CentralSecurityService.Databa
 
         public CentralSecurityServiceDatabase(DbContextOptions<CentralSecurityServiceDatabase> options) : base(options)
         {
-            DatabaseName = CentralSecurityServiceCommonSettings.Instance.Database.DatabaseName;
-            DatabaseSchema = CentralSecurityServiceCommonSettings.Instance.Database.DatabaseSchema;
+            int databaseTypeValue = CentralSecurityServiceCommonSettings.Instance.DatabaseTypeValue;
+
+            if (databaseTypeValue == DatabaseType.SqlServer)
+            {
+                DatabaseName = CentralSecurityServiceCommonSettings.Instance.SqlServerDatabase.DatabaseName;
+                DatabaseSchema = CentralSecurityServiceCommonSettings.Instance.SqlServerDatabase.DatabaseSchema;
+            }
+            else if (databaseTypeValue == DatabaseType.PostgreSql)
+            {
+                DatabaseName = CentralSecurityServiceCommonSettings.Instance.PostgreSqlDatabase.DatabaseName;
+                DatabaseSchema = CentralSecurityServiceCommonSettings.Instance.PostgreSqlDatabase.DatabaseSchema;
+            }
+            else
+            {
+                throw new InvalidOperationException($"Unsupported Database Type Value: {databaseTypeValue}");
+            }
         }
 
         public long GetNextUniqueReferenceIdPostgreSql()
@@ -44,7 +71,7 @@ namespace CentralSecurityService.Common.DataAccess.CentralSecurityService.Databa
                 using (var sqlCommand = databaseConnection.CreateCommand())
                 {
                     // PostgreSQL sequence next value
-                    var schema = CentralSecurityServiceCommonSettings.Instance.Database.DatabaseSchema;
+                    var schema = CentralSecurityServiceCommonSettings.Instance.PostgreSqlDatabase.DatabaseSchema;
                     sqlCommand.CommandText = $"SELECT nextval('\"{schema}\".\"UniqueReferenceId\"');";
 
                     nextUniqueReferenceId = (long)sqlCommand.ExecuteScalar();
@@ -69,7 +96,7 @@ namespace CentralSecurityService.Common.DataAccess.CentralSecurityService.Databa
 
                 using (var sqlCommand = databaseConnection.CreateCommand())
                 {
-                    sqlCommand.CommandText = $"SELECT NEXT VALUE FOR {CentralSecurityServiceCommonSettings.Instance.Database.DatabaseSchema}.UniqueReferenceId;";
+                    sqlCommand.CommandText = $"SELECT NEXT VALUE FOR {CentralSecurityServiceCommonSettings.Instance.SqlServerDatabase.DatabaseSchema}.UniqueReferenceId;";
 
                     nextUniqueReferenceId = (long)sqlCommand.ExecuteScalar();
                 }
